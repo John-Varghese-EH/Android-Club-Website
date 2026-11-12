@@ -1,0 +1,344 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-display: var(--font-plus-jakarta), var(--font-roboto-flex), system-ui, sans-serif;
+  --font-sans: var(--font-plus-jakarta), var(--font-roboto-flex), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  /* Light Mode Palette: Clean Google Material 3 Tonal Surfaces */
+  --bg-primary: #F8FAF8;
+  --bg-secondary: #EEF3EE;
+  --bg-elevated: #FFFFFF;
+  --surface-sage: #D8F0DF;
+  --surface-sand: #F2ECE2;
+  --text-primary: #111613;
+  --text-secondary: #435048;
+  --text-muted: #66756B;
+  --border-card: rgba(17, 22, 19, 0.065);
+  --border-subtle: rgba(17, 22, 19, 0.04);
+  --android-green: #3DDC84;
+  --android-forest: #0B6E3A;
+  --color-dynamic-seed: #3DDC84;
+
+  /* Dynamic Material 3 Tonal Tokens (updated live by ThemeProvider) */
+  --m3-primary: #0B6E3A;
+  --m3-on-primary: #FFFFFF;
+  --m3-primary-container: #C8F5D9;
+  --m3-on-primary-container: #07381D;
+  --m3-secondary-container: #DCE8DF;
+  --m3-tertiary-container: #EAE5D8;
+
+  --glass-bg: rgba(248, 250, 248, 0.84);
+  --glass-border: rgba(17, 22, 19, 0.07);
+  --shadow-soft: 0 20px 44px -18px rgba(17, 22, 19, 0.09);
+
+  /* Official @material/web v0.192 System Tokens */
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-state-hover-opacity: 0.08;
+  --md-sys-state-focus-opacity: 0.12;
+  --md-sys-state-pressed-opacity: 0.12;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full: 9999px;
+  --md-sys-elevation-level1: 0 1px 2px rgba(0, 0, 0, 0.12), 0 1px 3px 1px rgba(0, 0, 0, 0.08);
+  --md-sys-elevation-level2: 0 1px 2px rgba(0, 0, 0, 0.14), 0 2px 6px 2px rgba(0, 0, 0, 0.09);
+
+  --md-sys-state-layer-ref: "4a6f686e20566172676865736520284a305829207c202f696e2f4a6f686e2d2d5661726768657365207c204a6f686e2d56617267686573652d4548";
+}
+
+html.dark {
+  /* Dark Mode Palette: Pixel Carbon & Material You Tonal Surface Hierarchy */
+  --bg-primary: #0C100D;
+  --bg-secondary: #131915;
+  --bg-elevated: #1A221D;
+  --surface-sage: #183223;
+  --surface-sand: #232018;
+  --text-primary: #F4F8F5;
+  --text-secondary: #B7C5BC;
+  --text-muted: #7F9185;
+  --border-card: rgba(255, 255, 255, 0.075);
+  --border-subtle: rgba(255, 255, 255, 0.045);
+  --android-green: #3DDC84;
+  --android-forest: #3DDC84;
+
+  --m3-primary: #47E58E;
+  --m3-on-primary: #062111;
+  --m3-primary-container: #143A24;
+  --m3-on-primary-container: #B9F8D2;
+  --m3-secondary-container: #1D2922;
+  --m3-tertiary-container: #26241B;
+
+  --glass-bg: rgba(14, 19, 16, 0.84);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --shadow-soft: 0 24px 52px -18px rgba(0, 0, 0, 0.65);
+}
+
+@layer base {
+  html {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    scroll-behavior: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    transition: background-color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+      color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+  }
+
+  ::selection {
+    background-color: var(--color-dynamic-seed);
+    color: #090B0A;
+  }
+
+  /* Material Web focus ring signature (@material/web focus-ring) */
+  :focus-visible {
+    outline: 3px solid var(--m3-primary);
+    outline-offset: 2px;
+    border-radius: var(--md-sys-shape-corner-small);
+  }
+}
+
+/* Google Display Geometric Typography */
+.font-expressive {
+  font-family: var(--font-display);
+  font-feature-settings: "ss01" on, "cv05" on;
+}
+
+/* Subtle architectural dot grid surface pattern (no glowing orbs) */
+.bg-architectural-grid {
+  background-image: radial-gradient(
+    var(--border-card) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+
+/* Official Material Web emphasized decelerate motion helper */
+.m3-spring {
+  transition:
+    transform var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-emphasized-decelerate),
+    background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+    border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+    box-shadow var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+}
+
+/* Material Web state-layer interaction overlay */
+.md-state-layer {
+  position: relative;
+  overflow: hidden;
+}
+
+.md-state-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.md-state-layer:hover::after {
+  opacity: var(--md-sys-state-hover-opacity);
+}
+
+.md-state-layer:active::after {
+  opacity: var(--md-sys-state-pressed-opacity);
+}
+
+/* Custom thin architectural scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(107, 125, 113, 0.35);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--m3-primary);
+}
+
+/* Material-tinted shimmer fallback for uncached images */
+@keyframes materialShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.material-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-secondary) 0%,
+    var(--m3-primary-container) 50%,
+    var(--bg-secondary) 100%
+  );
+  background-size: 200% 100%;
+  animation: materialShimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marqueeScrollReverse {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee {
+  animation: marqueeScroll 26s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-reverse {
+  animation: marqueeScrollReverse 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover,
+.partners-marquee-stage:hover .animate-marquee,
+.partners-marquee-stage:hover .animate-marquee-reverse {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .material-skeleton,
+  .m3-spring,
+  .m3-icon-bob,
+  .m3-icon-wiggle,
+  .m3-jagged-glint::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Mobile-first tactile responsiveness & horizontal snap rail helpers */
+button,
+a,
+[role="button"],
+[role="tab"],
+select {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Android Jagged Badge Expressive Micro-Animations */
+@keyframes m3GlintSweep {
+  0%,
+  72% {
+    transform: translateX(-140%) skewX(-20deg);
+    opacity: 0;
+  }
+  80% {
+    opacity: 0.42;
+  }
+  96%,
+  100% {
+    transform: translateX(240%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+@keyframes m3IconBob {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-1.5px) rotate(-6deg);
+  }
+}
+
+@keyframes m3IconWiggle {
+  0%,
+  78%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  84% {
+    transform: rotate(-11deg) scale(1.08);
+  }
+  90% {
+    transform: rotate(9deg) scale(1.08);
+  }
+  95% {
+    transform: rotate(-4deg) scale(1.03);
+  }
+}
+
+.m3-jagged-glint {
+  position: relative;
+  overflow: hidden;
+}
+
+.m3-jagged-glint::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 45%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  animation: m3GlintSweep 6.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.m3-icon-bob {
+  animation: m3IconBob 3.4s ease-in-out infinite;
+}
+
+.m3-icon-wiggle {
+  animation: m3IconWiggle 4.4s ease-in-out infinite;
+}
+

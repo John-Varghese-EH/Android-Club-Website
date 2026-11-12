@@ -1,0 +1,10 @@
+/* TEAM */
+Chapter: Android Club VIT Bhopal
+Lead Engineering Contributor: John Varghese (J0X)
+GitHub: https://github.com/John-Varghese-EH
+LinkedIn: https://www.linkedin.com/in/John--Varghese/
+Chapter Portal: https://androidclub.tech
+Location: VIT Bhopal University, Madhya Pradesh, India
+
+/* STANDARDS */
+Stack: Next.js 16, React 19, TypeScript, Tailwind CSS v4, GSAP, Lenis, Material Design 3

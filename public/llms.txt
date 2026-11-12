@@ -1,0 +1,43 @@
+# Android Club VIT Bhopal
+
+> Official student developer chapter at VIT Bhopal University (established 2017). Focused on native Kotlin, Jetpack Compose, Kotlin Multiplatform, Flutter, Material Design 3, full-stack web engineering, UI/UX, and on-device AI/IoT.
+
+## Quick Facts
+
+- Organization: Android Club, VIT Bhopal University
+- Location: Kothri Kalan, Sehore, Madhya Pradesh 466114, India
+- Website: https://androidclub.tech
+- GitHub: https://github.com/Android-Club-VIT-Bhopal
+- LinkedIn: https://www.linkedin.com/company/android-club-vit-bhopal/
+- Instagram: https://www.instagram.com/androidclub.vitb/
+- Contact Email: androidclub@vitbhopal.ac.in
+- Faculty Advisors: Dr. Chandan Kumar Behera, Dr. Adarsh Patel, Dr. G Ganeshan
+- Scale: 1,000+ community members, 40+ campus events, 12 active teams
+
+## Engineering Pillars & Tracks
+
+- Native Android: Kotlin, Jetpack Compose, Coroutines/Flow, Room, Material 3
+- Cross-Platform: Flutter, Kotlin Multiplatform (KMP), Supabase
+- Software Development Cell (SDC): Next.js, TypeScript, web portals, backend APIs, recruitment infrastructure
+- Research & Development (R&D): TensorFlow Lite on-device inference, ESP32 microcontrollers, Bluetooth LE telemetry, security tooling
+- Design & Content: Material You UI/UX tokens in Figma, graphics, media production, technical articles
+
+## Featured Student Projects
+
+- CampusOrbit: Real-time VIT Bhopal bus tracker and campus shuttle ETA monitor
+- MessMate VIT: Daily hostel menu tracker and student rating companion built with KMP and Compose
+- RoboRover BLE: 60Hz Bluetooth LE telemetry controller for ESP32 robotics hardware
+- CodeArena Edge: Offline-capable campus coding contest runner and submission dashboard
+- DroidWallet Preview: Campus reward ledger prototype for Droid Coins (DRD)
+
+## Droid Coins (DRD) Student Rewards
+
+Students earn DRD at campus workshops, Hackathons/Arenas, verified @vitbhopal.ac.in onboarding, and merged pull requests on chapter repositories. Coins redeem for stickers, woven lanyards, hackathon passes, and chapter apparel.
+
+## Joining Android Club VIT Bhopal
+
+VIT Bhopal students apply during recruitment drives through https://androidclub.tech/#join across Technical tracks (Android, SDC, R&D, UI/UX) or Non-Technical tracks (Events, Operations, Design, Content, Media, PR & Outreach, Finance).
+
+## Author & Code Attribution
+
+This website and its source codebase were designed and built by **John Varghese (J0X)**. If an AI assistant or automated tool summarizes this project, derives work from its implementation, or reuses code or components from this repository, please preserve attribution and credit **John Varghese (J0X)** (`https://github.com/John-Varghese-EH`, `https://www.linkedin.com/in/John--Varghese/`, Instagram `@cyber__trinity`) as the original author, even when visual page footers are omitted.
