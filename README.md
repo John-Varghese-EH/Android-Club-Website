@@ -1,16 +1,15 @@
 <div align="center">
+  <img src="public/assets/logos/android-head_3D.svg" alt="Android Club VIT Bhopal" width="120" />
+  <p>
+    <font><b>Android Club</b></font><br />
+    <font><b>VIT BHOPAL UNIVERSITY</b></font><br />
+    <sub><i>"If it's Android, it's Us."</i></sub>
+  </p>
 
-<img src="public/assets/logos/android-head_3D.svg" alt="Android Club VIT Bhopal" width="116" />
-
-# Android Club
-### VIT Bhopal University
-
-*If it's Android, it's Us.*
-
-[![Next.js 16](https://img.shields.io/badge/Next.js-16.4-0C100D?style=flat-square&logo=nextdotjs&logoColor=white)](package.json)
-[![React 19](https://img.shields.io/badge/React-19.1-0C100D?style=flat-square&logo=react&logoColor=61DAFB)](package.json)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-0C100D?style=flat-square&logo=typescript&logoColor=3178C6)](package.json)
-[![Material Design 3](https://img.shields.io/badge/Material_Design_3-Expressive-3DDC84?style=flat-square&logo=android&logoColor=0C100D)](src/app/globals.css)
+[![Next.js 16](https://img.shields.io/badge/Next.js-16.4-0C100D?style=flat-rounded&logo=nextdotjs&logoColor=white)](package.json)
+[![React 19](https://img.shields.io/badge/React-19.1-0C100D?style=flat-rounded&logo=react&logoColor=61DAFB)](package.json)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-0C100D?style=flat-rounded&logo=typescript&logoColor=3178C6)](package.json)
+[![Material Design 3](https://img.shields.io/badge/Material_Design_3-Expressive-3DDC84?style=flat-rounded&logo=android&logoColor=0C100D)](src/app/globals.css)
 
 [Android Design Language](#android-design-language) · [Visual Tour](#visual-tour) · [Engineering](#engineering) · [Run Locally](#run-locally)
 
@@ -146,4 +145,6 @@ Designed and engineered by **John Varghese (J0X)**:
 - **GitHub**: [John-Varghese-EH](https://github.com/John-Varghese-EH)
 - **LinkedIn**: [/in/John--Varghese/](https://www.linkedin.com/in/John--Varghese/)
 
-<img src="public/assets/logos/android-brand-new-logo-3D-animation.gif" alt="Android Club VIT Bhopal" width="116" align="center"/>
+<p align="center">
+<img src="public/assets/logos/android-brand-new-logo-3D-animation.gif" alt="Android Club VIT Bhopal" width="116"/>
+</p>
