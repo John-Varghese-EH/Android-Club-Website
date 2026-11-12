@@ -94,13 +94,18 @@ export function JoinSection() {
       setError("Enter a valid VIT Bhopal registration ID (e.g. 25BCE10421).");
       return;
     }
-    if (!email.includes("@") || email.trim().length < 5) {
+    const emailValue = email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailValue)) {
       setError("Please enter a valid @vitbhopal.ac.in or personal email.");
       return;
     }
-    if (isTechnicalTrack && profileUrl.trim().length < 4) {
+    const profileValue = profileUrl.trim();
+    if (
+      isTechnicalTrack &&
+      (profileValue.length < 4 || /^(javascript|data|vbscript):/i.test(profileValue))
+    ) {
       setError(
-        "Technical tracks require your GitHub or LinkedIn profile handle."
+        "Technical tracks require a valid GitHub or LinkedIn profile handle."
       );
       return;
     }
@@ -171,6 +176,7 @@ export function JoinSection() {
                         src={partner.logo}
                         fallbackSrc={partner.fallback}
                         alt={`${partner.name} logo`}
+                        priority
                         wrapperClassName="flex h-full w-full items-center justify-center"
                         className="h-full w-full object-contain transition-transform duration-300 group-hover/logo:scale-105"
                       />

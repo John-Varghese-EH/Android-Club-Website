@@ -31,11 +31,8 @@ export function SmartImage({
   useEffect(() => {
     const img = imgRef.current;
     if (img && img.complete && img.naturalWidth > 0) {
-      const id = requestAnimationFrame(() => setLoadedSrc(activeSrc));
-      return () => cancelAnimationFrame(id);
+      setLoadedSrc(activeSrc);
     }
-    const safety = setTimeout(() => setLoadedSrc(activeSrc), 750);
-    return () => clearTimeout(safety);
   }, [activeSrc]);
 
   return (
@@ -43,8 +40,10 @@ export function SmartImage({
       {!isLoaded && (
         <div
           aria-hidden="true"
-          className="absolute inset-0 material-skeleton z-0"
-        />
+          className="absolute inset-0 z-0 flex items-center justify-center bg-[var(--bg-secondary)] animate-pulse material-skeleton"
+        >
+          <div className="h-4 w-4 rounded-full bg-[var(--m3-primary)]/20 ring-4 ring-[var(--m3-primary)]/10 animate-ping opacity-75" />
+        </div>
       )}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img

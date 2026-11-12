@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { clubConfig, navigationConfig } from "@/data/club";
 import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
-import { MaterialIcon } from "@/components/ui/MaterialIcon";
+import { MaterialIcon, type MaterialIconName } from "@/components/ui/MaterialIcon";
 import { AndroidLogoMark } from "@/components/ui/M3Shapes";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { cn, getIstTimeString } from "@/lib/utils";
@@ -15,15 +15,35 @@ import {
   scrollToSection,
 } from "@/lib/motion";
 
+const MOBILE_DOCK_ITEMS: {
+  id: string;
+  label: string;
+  icon: MaterialIconName;
+  matches: string[];
+}[] = [
+  { id: "hero", label: "Home", icon: "home", matches: ["hero", "about"] },
+  { id: "domains", label: "Tracks", icon: "layers", matches: ["domains"] },
+  { id: "events", label: "Events", icon: "calendar_month", matches: ["events"] },
+  {
+    id: "projects",
+    label: "Builds",
+    icon: "code_blocks",
+    matches: ["projects", "droidcoins", "team"],
+  },
+  { id: "join", label: "Join", icon: "bolt", matches: ["join"] },
+];
+
 export function Navbar() {
   const [activeId, setActiveId] = useState<string>("hero");
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [hoveredNav, setHoveredNav] = useState(navigationConfig.items[0]);
   const [istTime, setIstTime] = useState<string>("");
 
+  const progressBarRef = useRef<HTMLSpanElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const menuTriggerRef = useRef<HTMLButtonElement>(null);
+  const wasMenuOpenRef = useRef<boolean>(false);
   const menuItemsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Live VIT Bhopal campus IST clock
@@ -44,9 +64,13 @@ export function Navbar() {
       const scrollTop = window.scrollY;
       const docHeight =
         document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(
-        docHeight > 0 ? Math.min(1, Math.max(0, scrollTop / docHeight)) : 0
-      );
+      const pct =
+        docHeight > 0
+          ? Math.round(Math.min(1, Math.max(0, scrollTop / docHeight)) * 100)
+          : 0;
+      if (progressBarRef.current) {
+        progressBarRef.current.style.width = `${pct}%`;
+      }
 
       let current = "hero";
       for (const item of navigationConfig.items) {
@@ -57,7 +81,7 @@ export function Navbar() {
           current = item.id;
         }
       }
-      setActiveId(current);
+      setActiveId((prev) => (prev === current ? prev : current));
     };
 
     onScroll();
@@ -65,50 +89,61 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Animate Menu Drawer open/close
+  // Animate Menu Drawer open/close, lock scroll, and handle Escape regardless of motion preference
   useEffect(() => {
-    if (menuOpen) {
-      pauseSmoothScroll();
-      closeButtonRef.current?.focus();
-
-      if (!prefersReducedMotion() && drawerRef.current) {
-        const ctx = gsap.context(() => {
-          gsap.fromTo(
-            drawerRef.current,
-            { clipPath: "circle(0% at 94% 4%)", opacity: 0.7 },
-            {
-              clipPath: "circle(150% at 94% 4%)",
-              opacity: 1,
-              duration: 0.65,
-              ease: "expo.out",
-            }
-          );
-          gsap.fromTo(
-            menuItemsRef.current.filter(Boolean),
-            { y: 28, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.45,
-              stagger: 0.045,
-              delay: 0.15,
-              ease: "power3.out",
-            }
-          );
-        }, drawerRef);
-
-        const onKey = (e: KeyboardEvent) => {
-          if (e.key === "Escape") setMenuOpen(false);
-        };
-        window.addEventListener("keydown", onKey);
-        return () => {
-          window.removeEventListener("keydown", onKey);
-          ctx.revert();
-        };
-      }
-    } else {
+    if (!menuOpen) {
       resumeSmoothScroll();
+      if (wasMenuOpenRef.current) {
+        wasMenuOpenRef.current = false;
+        menuTriggerRef.current?.focus();
+      }
+      return;
     }
+
+    wasMenuOpenRef.current = true;
+    pauseSmoothScroll();
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+
+    let ctx: gsap.Context | null = null;
+    if (!prefersReducedMotion() && drawerRef.current) {
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          drawerRef.current,
+          { clipPath: "circle(0% at 94% 4%)", opacity: 0.7 },
+          {
+            clipPath: "circle(150% at 94% 4%)",
+            opacity: 1,
+            duration: 0.65,
+            ease: "expo.out",
+          }
+        );
+        gsap.fromTo(
+          menuItemsRef.current.filter(Boolean),
+          { y: 28, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.45,
+            stagger: 0.045,
+            delay: 0.15,
+            ease: "power3.out",
+          }
+        );
+      }, drawerRef);
+    }
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+      ctx?.revert();
+    };
   }, [menuOpen]);
 
   const handleNavigate = (itemId: string) => {
@@ -130,8 +165,8 @@ export function Navbar() {
             className="pointer-events-none absolute inset-x-6 bottom-0 h-[2px] overflow-hidden rounded-full"
           >
             <span
-              className="block h-full rounded-full bg-[var(--m3-primary)] transition-[width] duration-150"
-              style={{ width: `${Math.round(scrollProgress * 100)}%` }}
+              ref={progressBarRef}
+              className="block h-full w-0 rounded-full bg-[var(--m3-primary)] transition-[width] duration-150"
             />
           </span>
 
@@ -185,6 +220,7 @@ export function Navbar() {
             <ThemeSwitcher />
 
             <button
+              ref={menuTriggerRef}
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-expanded={menuOpen}
@@ -321,6 +357,55 @@ export function Navbar() {
               {clubConfig.email}
             </p>
           </div>
+        </div>
+      )}
+
+      {!menuOpen && (
+        <div className="fixed bottom-[max(0.55rem,env(safe-area-inset-bottom))] inset-x-0 z-40 px-3 lg:hidden pointer-events-none">
+          <nav
+            aria-label="Mobile quick navigation"
+            className="pointer-events-auto mx-auto flex w-full max-w-[330px] items-center justify-between gap-0.5 rounded-[24px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/95 p-1 backdrop-blur-2xl shadow-[0_12px_28px_-8px_rgba(0,0,0,0.42),0_0_0_1px_rgba(61,220,132,0.08)]"
+          >
+            {MOBILE_DOCK_ITEMS.map((item) => {
+              const isActive = item.matches.includes(activeId);
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => scrollToSection(item.id)}
+                  aria-current={isActive ? "page" : undefined}
+                  aria-label={`Jump to ${item.label}`}
+                  className="group relative flex flex-1 flex-col items-center justify-center gap-[3px] rounded-[18px] py-[4px] px-1 m3-spring cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--m3-primary)]"
+                >
+                  <span
+                    className={cn(
+                      "relative flex h-[22px] w-10 items-center justify-center rounded-full m3-spring",
+                      isActive
+                        ? "bg-[var(--m3-primary-container)] text-[var(--m3-on-primary-container)] shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_2px_10px_-2px_rgba(61,220,132,0.45)]"
+                        : "text-[var(--text-secondary)] group-hover:bg-[var(--bg-secondary)]/75 group-hover:text-[var(--text-primary)]"
+                    )}
+                  >
+                    <MaterialIcon
+                      name={item.icon}
+                      size={15}
+                      filled={isActive}
+                      className="transition-transform duration-200 group-active:scale-90"
+                    />
+                  </span>
+                  <span
+                    className={cn(
+                      "text-[9.5px] leading-none tracking-[0.01em] transition-colors",
+                      isActive
+                        ? "font-bold text-[var(--text-primary)]"
+                        : "font-medium text-[var(--text-muted)]"
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
+          </nav>
         </div>
       )}
     </>

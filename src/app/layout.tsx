@@ -102,10 +102,10 @@ export const metadata: Metadata = {
     siteName: "Android Club VIT Bhopal",
     images: [
       {
-        url: "/assets/gallery/groupPhoto.jpg",
+        url: "/og-image.png",
         width: 1200,
-        height: 800,
-        alt: "Android Club VIT Bhopal community builders",
+        height: 630,
+        alt: "Android Club VIT Bhopal • If it's Android, it's Us!",
       },
     ],
   },
@@ -114,7 +114,7 @@ export const metadata: Metadata = {
     title: "Android Club | VIT Bhopal University",
     description:
       "Official student developer chapter at VIT Bhopal University. Kotlin, Jetpack Compose, Material 3, and on-device AI.",
-    images: ["/assets/gallery/groupPhoto.jpg"],
+    images: ["/og-image.png"],
   },
   other: {
     author: "John Varghese (J0X) - github.com/John-Varghese-EH",
@@ -135,7 +135,7 @@ const structuredData = {
       alternateName: "Android Club VITB",
       url: SITE_URL,
       logo: `${SITE_URL}/icon.svg`,
-      image: `${SITE_URL}/assets/gallery/groupPhoto.jpg`,
+      image: `${SITE_URL}/og-image.png`,
       foundingDate: "2017",
       email: clubConfig.email,
       description: clubConfig.subtitle,
@@ -264,7 +264,9 @@ export default function RootLayout({
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs Summary" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          }}
         />
       </head>
       <body

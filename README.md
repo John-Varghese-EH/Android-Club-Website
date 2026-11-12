@@ -68,7 +68,7 @@ Four core engineering tracks (**Native Android**, **Flutter & KMP**, **Material 
 
 ---
 
-### Core Council (2026 - 2027), Recruitment & Campus Map
+### Faculty, Core Council, Recruitment & Campus Map
 
 Departmental roster filtering (`SDC` view shown below), recruitment FAQ accordion, and the footer housing a live dark-mode Google Map pinned to **VIT Bhopal University** alongside the rising 3D Android return-to-top trigger.
 
