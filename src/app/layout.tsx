@@ -24,7 +24,13 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const SITE_URL = "https://androidclub.tech";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "https://androidclub.tech");
 
 export const viewport: Viewport = {
   themeColor: [
@@ -102,10 +108,20 @@ export const metadata: Metadata = {
     siteName: "Android Club VIT Bhopal",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.jpg",
+        secureUrl: `${SITE_URL}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Android Club VIT Bhopal • If it's Android, it's Us!",
+        type: "image/jpeg",
+        alt: "Android Club VIT Bhopal",
+      },
+      {
+        url: "/og-image.png",
+        secureUrl: `${SITE_URL}/og-image.png`,
+        width: 1200,
+        height: 630,
+        type: "image/png",
+        alt: "Android Club VIT Bhopal",
       },
     ],
   },
@@ -114,7 +130,7 @@ export const metadata: Metadata = {
     title: "Android Club | VIT Bhopal University",
     description:
       "Official student developer chapter at VIT Bhopal University. Kotlin, Jetpack Compose, Material 3, and on-device AI.",
-    images: ["/og-image.png"],
+    images: ["/og-image.jpg"],
   },
   other: {
     author: "John Varghese (J0X) - github.com/John-Varghese-EH",
@@ -135,7 +151,7 @@ const structuredData = {
       alternateName: "Android Club VITB",
       url: SITE_URL,
       logo: `${SITE_URL}/icon.svg`,
-      image: `${SITE_URL}/og-image.png`,
+      image: `${SITE_URL}/og-image.jpg`,
       foundingDate: "2017",
       email: clubConfig.email,
       description: clubConfig.subtitle,
